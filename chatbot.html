@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Expense Calculator Chatbot</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 h-screen flex flex-col">
+  <div class="max-w-2xl mx-auto w-full mt-10 bg-white p-6 rounded-2xl shadow-lg flex flex-col h-[90vh]">
+    <h1 class="text-2xl font-bold text-center mb-4">💰 Expense Bot</h1>
+    <div id="chat" class="flex-1 overflow-y-auto space-y-4 mb-4"></div>
+    <div class="flex">
+      <input id="userInput" type="text" placeholder="Type a command..." class="flex-1 border p-2 rounded-l-lg outline-none"/>
+      <button onclick="handleInput()" class="bg-blue-600 text-white px-4 rounded-r-lg">Send</button>
+    </div>
+  </div>
+
+  <script>
+    const chat = document.getElementById("chat");
+    const userInput = document.getElementById("userInput");
+
+    let expenses = [];
+
+    function addMessage(sender, text) {
+      const msg = document.createElement("div");
+      msg.className = sender === "bot" ? "text-left" : "text-right";
+      msg.innerHTML = `<div class="inline-block bg-${sender === "bot" ? "gray" : "blue"}-200 px-3 py-2 rounded-lg max-w-xs">${text}</div>`;
+      chat.appendChild(msg);
+      chat.scrollTop = chat.scrollHeight;
+    }
+
+    function handleInput() {
+      const input = userInput.value.trim();
+      if (!input) return;
+
+      addMessage("user", input);
+      userInput.value = "";
+
+      // Parse input
+      if (/add expense/i.test(input)) {
+        const match = input.match(/add expense (\d+)\s*for\s*(.+)/i);
+        if (match) {
+          const amount = parseFloat(match[1]);
+          const category = match[2].toLowerCase();
+          expenses.push({ amount, category });
+          addMessage("bot", `Added ₹${amount} for ${category}.`);
+        } else {
+          addMessage("bot", "Please use format: 'Add expense 300 for groceries'");
+        }
+      } else if (/total/i.test(input)) {
+        const total = expenses.reduce((sum, e) => sum + e.amount, 0);
+        addMessage("bot", `Total spent: ₹${total}`);
+      } else if (/category/i.test(input)) {
+        if (expenses.length === 0) {
+          addMessage("bot", "No expenses added yet.");
+        } else {
+          const summary = {};
+          expenses.forEach(({ amount, category }) => {
+            summary[category] = (summary[category] || 0) + amount;
+          });
+          const response = Object.entries(summary)
+            .map(([cat, amt]) => `${cat}: ₹${amt}`)
+            .join("<br>");
+          addMessage("bot", `Spending by category:<br>${response}`);
+        }
+      } else if (/reset/i.test(input)) {
+        expenses = [];
+        addMessage("bot", "All expenses reset.");
+      } else {
+        addMessage("bot", "Commands: 'Add expense 100 for food', 'Show total', 'Show category', 'Reset'");
+      }
+    }
+  </script>
+</body>
+</html>

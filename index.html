@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Helpmefy</title>
+    <link href="./output.css" rel="stylesheet">
+    <link rel="icon" href="help4.jpg" type="image/jpg">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container min-h-screen bg-cover bg-[url('backgroundhome.png')] px-28 ">
+        <nav class="flex items-center">
+            <img src="logo.png" class="w-110 cursor-pointer">
+            <ul class="flex-1 text-center">
+                <li class="list-none inline-block px-5"><a href="#" class="no-underline text-black px-2" c>Home</a></li>
+                <li class="list-none inline-block px-5"><a href="#" class="no-underline text-black px-2">About us</a></li>
+                <li class="list-none inline-block px-5"><a href="#" class="no-underline text-black px-2">Contact</a></li>
+                <li class="list-none inline-block px-5"><a href="#" class="no-underline text-black px-2">Languages</a></li>
+            </ul>
+            <img src="indiaflag.png" class="w-10 cursor-pointer">
+
+
+        </nav>
+        <div class="row">
+            <div class="col-1">
+                <h1 id="col-1-text">Helpmefy!! Simplifying Help, Amplifying Hope</h1>
+                <p>A place where we always ready to help you.</p>
+                <button id="logbut" type="button"><a href="login.html">Login / SignUp</a></button>
+            </div>
+            <div class="col-2">
+                <img src="help1.png" id="banner">
+                <ul class="picdotswitch">
+                    <li class="btn active"></li>
+                    <li class="btn"></li>
+                    <li class="btn"></li>
+                    <li class="btn"></li>
+                </ul>
+                <button type="button"><a href="#">Emergency??</a></button>
+            </div> 
+        </div>
+    </div>
+<script>
+    var btn = document.getElementsByClassName("btn");
+    var banner = document.getElementById("banner");
+    btn[0].onclick=function(){
+        banner.src = "help1.png";
+        banner.classList.add("zoom");
+        setTimeout(function(){
+            banner.classList.remove("zoom");
+        },500);
+        this.classList.add("active");
+        for(b of btn){
+            b.classList.remove("active");
+        }
+    }
+    btn[1].onclick=function(){
+        banner.src = "help2.jpg";
+        banner.classList.add("zoom");
+        setTimeout(function(){
+            banner.classList.remove("zoom");
+        },500);
+        this.classList.add("active");
+        for(b of btn){
+            b.classList.remove("active");
+        }
+    }
+    btn[2].onclick=function(){
+        banner.src = "help3.jpg";
+        banner.classList.add("zoom");
+        setTimeout(function(){
+            banner.classList.remove("zoom");
+        },500);
+        this.classList.add("active");
+        for(b of btn){
+            b.classList.remove("active");
+        }
+    }
+    btn[3].onclick=function(){
+        banner.src = "help4.jpg";
+        banner.classList.add("zoom");
+        setTimeout(function(){
+            banner.classList.remove("zoom");
+        },500);
+        this.classList.add("active");
+        for(b of btn){
+            b.classList.remove("active");
+        }
+    }
+
+
+
+</script>
+
+
+    
+</body>
+</html>
